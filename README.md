@@ -166,7 +166,4 @@ Built with ❤️ using:
 * yt-dlp, pytube
 * Hugging Face Datasets (optional, Module 2)
 
----
 
-Would you like me to make it **auto-formatted for GitHub (with emoji badges, install shields, and preview GIF placeholders)**?
-That would make your repo look even more professional and ready for public view.
