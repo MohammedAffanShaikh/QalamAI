@@ -1,210 +1,172 @@
 
-````markdown
-# 🎙️ QalamAI Speech Translator  
-> 🌍 Real-time & Batch AI Speech Translation Suite (Modules 1–4)
+# 🎙️ QalamAI Speech Translator — Modular AI Speech Translation Suite
 
-[![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-Web%20App-black?logo=flask)](https://flask.palletsprojects.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/Build-Stable-brightgreen)]()
-[![GitHub Repo](https://img.shields.io/badge/View_on-GitHub-black?logo=github)](https://github.com/MohammedAffanShaikh/QalamAI)
+A **multi-module monorepo** for complete speech translation workflows — from environment validation and dataset preparation to batch translation, realtime OTT/YouTube streaming, and a full-featured Flask web UI.
 
 ---
 
-### 🧩 Overview
+## 🧭 Repository Overview
 
-**QalamAI** is a modular AI-powered speech translator supporting:
-- 🎤 **Speech-to-Text (STT)**
-- 🌐 **Translation across 12 languages**
-- 🔊 **Text-to-Speech (TTS)**
-- ▶️ **Realtime OTT/YouTube & microphone translation**
-- 💻 **Beautiful Flask web UI**
-
-Built for **learners, researchers, and developers** exploring multilingual speech systems.
+| Module       | Folder                       | Purpose                              |
+| ------------ | ---------------------------- | ------------------------------------ |
+| **Module 1** | `speech-translator/module1/` | Environment setup and sanity checks  |
+| **Module 2** | `speech-translator/module2/` | Offline / batch translation toolkit  |
+| **Module 3** | `speech-translator/module3/` | OTT-style realtime translation (CLI) |
+| **Module 4** | `speech-translator/module4/` | Flask web UI (mic, upload, YouTube)  |
 
 ---
 
-## 🏗️ Repository Structure
+## 🚀 Module Details
 
-| Module | Folder | Description |
-|:-------|:--------|:------------|
-| **1️⃣ Module 1** | `speech-translator/module1/` | Environment setup & sanity checks |
-| **2️⃣ Module 2** | `speech-translator/module2/` | Offline / batch translation toolkit |
-| **3️⃣ Module 3** | `speech-translator/module3/` | OTT-style realtime translation (CLI) |
-| **4️⃣ Module 4** | `speech-translator/module4/` | Flask web app (mic 🎙️, upload 📁, YouTube ▶️) |
+### 🧩 Module 1 — Environment & Stack Check
 
----
-
-## ✨ Features
-
-✅ Speech-to-Text → Translate → Text-to-Speech  
-✅ YouTube / OTT / Microphone support  
-✅ Auto language detection  
-✅ Human-like voices (EdgeTTS gendered when available)  
-✅ Multi-pipeline audio handling (moviepy, ffmpeg, librosa, pydub)  
-✅ Web UI + API endpoints  
-✅ Modular architecture for flexibility
+* Quick verification of Python, audio, and GPU libraries
+* Sanity tests for STT and translation components
+* Ideal for first-time setup or CI pipelines
+  **Files:** `colab_setup.ipynb`, `test_env.py`, `requirements.txt`
 
 ---
 
-## 🌍 Supported Languages
+### 🗂️ Module 2 — Offline & Batch Translation Tools
 
-| Code | Language | Code | Language |
-|------|-----------|------|-----------|
-| `en` | English | `hi` | Hindi |
-| `pa` | Punjabi | `mr` | Marathi |
-| `kn` | Kannada | `te` | Telugu |
-| `ta` | Tamil | `gu` | Gujarati |
-| `ml` | Malayalam | `bn` | Bengali |
-| `or` | Odia | `ur` | Urdu |
+* Download / prepare datasets (e.g., from Hugging Face)
+* Convert audio formats (`mp3 ↔ wav`) with 16kHz mono normalization
+* Perform batch STT → translate → TTS
+* Stores outputs, logs, and metadata
+  **Folders:** `data/`, `outputs/`, `logs/`
+  **Goal:** Efficient dataset-based translation workflows
+
+---
+
+### 🔴 Module 3 — OTT / Realtime Translation (Scripted)
+
+* CLI-based realtime translator from **microphone or stream inputs**
+* Suitable for rapid experimentation without a server or UI
+* Can simulate OTT captioning or live subtitle generation
+  **Script:** `module3_ott_realtime.py`
+
+---
+
+### 🌐 Module 4 — Flask Web App (Interactive UI)
+
+* Intuitive web interface supporting:
+
+  * 🎤 Live microphone translation
+  * 📁 Audio/video file uploads with playback and TTS
+  * ▶️ YouTube translation via audio chunking (~8s)
+* **STT:** Google SpeechRecognition (multi-pipeline with fallbacks)
+* **TTS:** Edge TTS (gendered voices) → fallback to gTTS
+* **Robustness:** Automatic fallback conversion (moviepy → ffmpeg → librosa → pydub)
+
+**Supported languages:**
+`en`, `hi`, `pa`, `mr`, `kn`, `te`, `ta`, `gu`, `ml`, `bn`, `or`, `ur`
 
 ---
 
 ## 🧰 Prerequisites
 
-- **Python:** 3.11 – 3.13  
-- **FFmpeg:** Required for audio processing  
-  - ✅ Auto-handled in Module 4  
-  - 🪄 Manual install (Windows): [Download FFmpeg](https://ffmpeg.org/download.html)  
-  - Add `/bin` to your PATH  
-- **YouTube Support:** via `pytube` or `yt-dlp`
+* **Python:** 3.11 – 3.13
+* **FFmpeg:**
+
+  * Windows: auto-handled via `imageio_ffmpeg` in Module 4
+  * Otherwise: install manually and add to `PATH`
+  * Download: [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
+* **YouTube Support:** requires `pytube` or `yt-dlp`
 
 ---
 
-## ⚡ Quick Start (Flask Web App – Module 4)
+## ⚡ Quick Start — Module 4 (Flask Web App)
 
 ```bash
 cd speech-translator/module4
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python app.py
-````
+```
 
-🖥️ Open your browser at
-👉 [http://127.0.0.1:5000](http://127.0.0.1:5000)
+Open your browser:
 
----
+```
+http://127.0.0.1:5000
+```
 
-## 💻 Web App Pages
-
-| Feature                     | Description                                      |
-| --------------------------- | ------------------------------------------------ |
-| 🎤 **Live Mic Translation** | Record → STT → Translate → TTS                   |
-| 📁 **Upload Audio/Video**   | Supports mp3/mp4/wav with playback               |
-| ▶️ **YouTube Translation**  | Downloads audio, chunks it, translates each part |
-| 🗣️ **TTS Voices**          | EdgeTTS for male/female voices, fallback to gTTS |
+> 💡 If deploying front-end separately (e.g., Netlify),
+> update `window.BACKEND_BASE_URL` in `index.html` to point to your Flask backend URL.
 
 ---
 
-## 🧪 Module 2 — Batch Translation Toolkit
+## 🧪 Module 2 — Batch Translation Usage
 
-Example commands:
+Convert files, batch translate, and manage datasets:
 
 ```bash
 # Convert MP3 to WAV
 python convert_mp3_to_wav.py
 
-# Run batch translation
+# Run batch translator
 python module2_batch_translator.py
 
-# Fetch datasets from Hugging Face
+# Fetch sample datasets
 python fetch_audio_datasets.py
 ```
 
-📂 Outputs are saved under `outputs/` and logs under `logs/`.
+Refer to `QUICK_START.md` and module-specific `README.md` for details.
 
 ---
 
-## 🎬 Module 3 — OTT / Realtime (CLI Mode)
+## 🎧 Module 3 — OTT / Realtime Script Usage
+
+Run the standalone OTT realtime translator:
 
 ```bash
 python module3_ott_realtime.py
 ```
 
-Simulates realtime translation from **microphone** or **stream** input.
-Perfect for testing live scenarios before UI integration.
+Configuration and quick examples are provided in
+`speech-translator/module3/README.md` and `QUICK_START.md`.
 
 ---
 
-## 🧠 Configuration Tips
+## ⚙️ Configuration Notes
 
-| Setting          | Description                                         |
-| ---------------- | --------------------------------------------------- |
-| `source_lang`    | Optional hint to improve STT accuracy               |
-| Audio Conversion | Auto pipeline: `moviepy → ffmpeg → librosa → pydub` |
-| YouTube Download | Falls back to `yt-dlp` if `pytube` fails            |
-
----
-
-## 🚑 Troubleshooting
-
-| Problem                          | Fix                                         |
-| -------------------------------- | ------------------------------------------- |
-| **FFmpeg not found**             | Install FFmpeg and verify `ffmpeg -version` |
-| **400/500 Bad Request**          | Check Flask console logs for details        |
-| **“Could not recognize speech”** | Use clear audio, check mic permissions      |
-| **Unicode errors (Windows)**     | Run terminal with UTF-8: `chcp 65001`       |
+* **STT Language Hint:**
+  `/mic_record` supports `source_lang` hints for better accuracy.
+* **Audio Conversion Chain:**
+  Automatic pipeline tries: `moviepy → ffmpeg → librosa → pydub`.
+* **YouTube Failover:**
+  Falls back to `yt-dlp` if `pytube` fails.
 
 ---
 
-## 🌐 Deployment Options
+## 🧩 Troubleshooting
 
-* **Local (recommended for dev):** Flask + localhost
-* **Render:** Deploy backend directly (Python buildpacks supported)
-* **Netlify (frontend only):**
-  Update `window.BACKEND_BASE_URL` in `index.html` → your Render URL
-
----
-
-## 📸 Demo (Add your screenshots or videos!)
-
-| Mic Translation                | YouTube Translation                    |
-| ------------------------------ | -------------------------------------- |
-| ![Mic Demo](docs/mic_demo.gif) | ![YouTube Demo](docs/youtube_demo.gif) |
+| Issue                            | Cause / Fix                                                          |
+| -------------------------------- | -------------------------------------------------------------------- |
+| **FFmpeg not found**             | Install FFmpeg and verify `ffmpeg -version` works                    |
+| **400/500 API error**            | Check Flask logs; often caused by invalid URL or STT failure         |
+| **“Could not recognize speech”** | Low-quality or silent audio; adjust `source_lang` or mic permissions |
+| **Unicode errors on Windows**    | Run terminal in UTF-8 mode: `chcp 65001`                             |
 
 ---
 
 ## 📜 License
 
-Licensed under the **MIT License**
-See [LICENSE](LICENSE) for full details.
+This repository is open-sourced for **educational and research purposes**.
+Please review third-party licenses (gTTS, Edge TTS, yt-dlp, pytube, librosa, etc.) before any commercial use.
 
 ---
 
-## ❤️ Acknowledgments
+## 🙏 Acknowledgments
 
-* 🧠 **SpeechRecognition** & **gTTS / EdgeTTS**
-* 🎬 **MoviePy**, **librosa**, **pydub**
-* 🌐 **yt-dlp**, **pytube**
-* 🤗 **Hugging Face Datasets**
+Built with ❤️ using:
 
----
-
-## ⭐ Contribute / Connect
-
-Want to contribute or improve QalamAI?
-
-```bash
-git clone https://github.com/MohammedAffanShaikh/QalamAI.git
-```
-
-Pull requests are welcome!
-💬 Contact: [@MohammedAffanShaikh](https://github.com/MohammedAffanShaikh)
+* Python SpeechRecognition
+* gTTS, Edge TTS
+* librosa, moviepy
+* yt-dlp, pytube
+* Hugging Face Datasets (optional, Module 2)
 
 ---
 
-> **Made with ❤️ by Mohammed Affan Shaikh**
-> 🎧 Bridging voices across languages with AI.
-
-```
-
----
-
-### ✅ Optional Enhancements
-You can also:
-- Add a **project logo** (`/static/logo.png`) and link it at the top.  
-- Record a short demo (screen recording of YouTube + mic translation).  
-- Add shields for “Stars”, “Forks”, and “Issues” once public.
-
-Would you like me to generate a **beautiful banner image** (like “QalamAI Speech Translator” with mic + waveform visuals) for the top of your README? It’ll make your GitHub page look premium.
-```
+Would you like me to make it **auto-formatted for GitHub (with emoji badges, install shields, and preview GIF placeholders)**?
+That would make your repo look even more professional and ready for public view.
